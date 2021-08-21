@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Monoton&display=swap');
+html{
+    height: 100%;
+    background: #0e2f56;
+}
+*{
+    margin: 0;
+    padding:0;
+}
+#title{
+    color: transparent;
+    -webkit-text-stroke: 3px #ff304f;
+    font-family: 'Concert One','Times New Roman', Times, serif;
+    font-size: 150px;
+    text-align: center;
+}
+form{
+    background-color: #ececda;
+    position: absolute;
+    padding: 35px;
+    border-radius: 10px;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%); 
+} 
+#abt{
+    font-size: 55px;
+    padding-bottom: 20px;
+    font-family: 'Concert One',cursive;
+    color: #ff304f;
+}
+.data{
+    margin: 20px;
+}
+.btn{
+    border: 0;
+    background-image: linear-gradient(to top right,#ff304f,#118df0 );
+    font-weight: bolder;
+    padding: 15px;
+    color: black;
+}
+#img{
+    position: absolute;
+    left: 50% 
+}
+#xtra{
+    color: #ff304f;
+    padding: 10px;
+    font-size: 18px;
+}
+.navbar{
+    margin: 0;
+
+    background-color: #ff304f;
+    display: flex;
+    justify-content: space-between;
+}
+.navbar div{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px;
+}
+.navbar div:hover,.navbar div a:hover{
+    cursor: pointer;
+    background-color: white;
+    color: #0e2f56;
+} 
+.pwd-list thead tr {
+    background-color: #ff304f;
+    color: #ffffff;
+    text-align: left;
+}
+.pwd-list  th,
+.pwd-list  td {
+    padding: 12px 15px;
+}
+.pwd-list tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.pwd-list tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.pwd-list tbody tr:nth-of-type(odd) {
+    background-color: #fabed0;
+}
+#details{
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+}
+#btns{
+    display: flex;
+    justify-content: space-between;
+}
