@@ -1,0 +1,44 @@
+<link rel="icon" type="image/png" sizes="16x16" href="../public/img/favicon.ico">
+<link href="/public/css/style.css" rel="stylesheet" type="text/css">
+
+<!-- NAVIGATION BAR-->
+<div class="navbar">
+    <div id="home"><%= username %></div>
+    <div id="addPwd" onclick=" document.getElementById('details').style.display='block'">+Password</div>
+    <div id="logout"><a href="/">LogOut</a></div>
+</div>
+<div class="content home">
+	<header id="abt" style="text-align: center;padding: 50px;">Your Passwords</header>
+	<table class="pwd-list">
+        <thead>
+            <tr>
+                <td>Website</td>
+                <td>Username</td>
+                <td>Email</td>
+                <td>Password</td>
+                <td></td>
+            </tr>
+        </thead>
+            <% for (var i = 0; i < r.length; i++) { %>
+                <tr>
+                    <td><%=r[i].website %></td>
+                    <td><%=r[i].username %></td>
+                    <td><%=r[i].email %></td>
+                    <td><%=r[i].password %></td>
+                    <td><a href="/del/<%=r[i].website %>/<%=r[i].username %>">Delete</a></td>
+                </tr>
+            <% } %>
+    </table>
+    
+        <form id="details" method="POST" action="/add">
+            <div id="abt">Details</div> 
+            <input class="data" type="text" name="website" placeholder="Website/App"><br>
+            <input class="data" type="text" name="username" placeholder="Username"><br>
+            <input class="data" type="text" name="email" placeholder="Email"><br>
+            <input class="data" type="password" name="password" placeholder="Password"><br>
+            <div id="btns">
+                <input type="submit" value="ADD" class="btn">
+                <a href="/cred"><input type="button" value="CANCEL" class="btn"></a>
+            </div>
+        </form> 
+</div>
