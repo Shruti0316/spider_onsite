@@ -1,4 +1,4 @@
-<link rel="icon" type="image/png" sizes="16x16" href="../public/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="../public/img/lock.ico">
 <link href="/public/css/style.css" rel="stylesheet" type="text/css">
 
 <!-- NAVIGATION BAR-->
@@ -24,7 +24,7 @@
                     <td><%=r[i].website %></td>
                     <td><%=r[i].username %></td>
                     <td><%=r[i].email %></td>
-                    <td><%=r[i].password %></td>
+                    <td><%=pwd[i]%></td>
                     <td><a href="/del/<%=r[i].website %>/<%=r[i].username %>">Delete</a></td>
                 </tr>
             <% } %>
