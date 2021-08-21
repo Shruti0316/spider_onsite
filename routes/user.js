@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const Cryptr = require("cryptr");
 const ejs = require("ejs");
 const db = require("../database");
 var name="";
+
+const cryptr = new Cryptr(process.env.SECERT_KEY);
 
 router.get("/", (req, res) => {
     res.redirect("/login");
 });
 router.get("/login", (req, res) => {
-    res.render("login.ejs");
+    res.render("login.ejs");    
 });
 router.get("/signup", (req, res) => {
     res.render("signup.ejs");
@@ -17,7 +20,15 @@ router.get("/signup", (req, res) => {
 router.get("/cred", (req, res) => {
     db.query("select * from "+this.name,(error,result) => {
         if(result){
-            res.render("home.ejs",{username: this.name,r: result});
+            console.log("peds: ",result.password);
+            const pwdArray=[];
+            for(i=0;i<result.length;++i){
+                console.log("123: ",cryptr.decrypt(result[i].password));
+                pwdArray.push(cryptr.decrypt(result[i].password));
+
+            }
+            console.log("array: ",pwdArray);
+            res.render("home.ejs",{username: this.name,r: result,pwd: pwdArray});
         }
         else{
             console.log(error);
@@ -52,7 +63,7 @@ router.post("/signup",async (req,res) => {
             db.query("INSERT INTO user (username,email,password) values(?,?,?)",[uname,email,hashedPwd],(err)=>{
                 if(!err){
                     //console.log("data entered successfully");
-                    db.query("CREATE TABLE "+uname+" (website varchar(50),username varchar(50),email varchar(50),password varchar(150) not null)")
+                    db.query("CREATE TABLE "+uname+" (website varchar(50),username varchar(50),email varchar(50),password varchar(300) not null)")
                     res.redirect("/")
                 }
                 else if(err){
@@ -94,13 +105,14 @@ router.post("/add",async(req,res) => {
     if(req.body.password == null || (req.body.username==null || req.body.email ==null)){
         res.send("Incomplete Credentials");
     }
-    const salt = await bcrypt.genSalt();
-    const hashedPwd = await bcrypt.hash(req.body.password,salt);
-    db.query("INSERT INTO "+this.name+" (website,username,email,password) values(?,?,?,?)",[req.body.website,req.body.username,req.body.email,hashedPwd],(result,error)=>{
-        try {
-            // console.log("successfully added");
+    // const salt = await bcrypt.genSalt();
+    // const hashedPwd = await bcrypt.hash(req.body.password,salt);
+    const encryptedPwd = cryptr.encrypt(req.body.password); 
+    db.query("INSERT INTO "+this.name+" (website,username,email,password) values(?,?,?,?)",[req.body.website,req.body.username,req.body.email,encryptedPwd],(error,result)=>{
+        if(result){
             res.redirect("/cred");
-        } catch (error) {
+        }
+        else{
             console.log(error);
         }
     })
